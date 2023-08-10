@@ -1,6 +1,10 @@
 package isi40core
 
-import "log"
+import (
+	"log"
+
+	mqtt "github.com/eclipse/paho.mqtt.golang"
+)
 
 type Protocol struct {
 	Name    string
@@ -31,6 +35,8 @@ func (p *Protocol) GetProtocolVersion() string {
 func (p *Protocol) Init() {
 	LogInfo("Protocol " + p.Name + " is running!!!!!")
 	LogInfo("AQUI VOU MANDAR O AVISO DE QUE O PROTOCOLO ESTÁ RODANDO PARA O MQTT INTERNO")
+	mqttClient := mqtt.NewClient(mqtt.NewClientOptions().AddBroker("tcp://localhost:1883"))
+	mqttClient.Publish("isi40/protocol/"+p.Name+"/status", 0, false, "running")
 }
 
 func LogInfo(message string) {
