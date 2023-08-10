@@ -4,6 +4,7 @@ import (
 	"io"
 	"log"
 	"os"
+	"runtime"
 
 	mqtt "github.com/eclipse/paho.mqtt.golang"
 )
@@ -20,7 +21,7 @@ func NewProtocol(protocolName string, protocolTitle, protocolVersion string) *Pr
 
 	protocol := new(Protocol)
 
-	protocol.Log = log.New(io.MultiWriter(os.Stdout), "["+protocolName+"] ", log.Ldate|log.Ltime|log.Lshortfile|log.Lmsgprefix)
+	protocol.Log = log.New(io.MultiWriter(os.Stdout), "["+protocolName+"] ", log.Ldate|log.Ltime|log.Lmsgprefix)
 
 	protocol.Name = protocolName
 	protocol.Title = protocolTitle
@@ -60,18 +61,21 @@ func (p *Protocol) SendMessageMQTT(topic string, message string) {
 
 func (p *Protocol) LogInfo(message string) {
 
-	p.Log.Printf("[%s] INFO - %v", p.Name, message)
+	_, filename, line, _ := runtime.Caller(1)
+	p.Log.Printf("[INFO] %s:%d - %v", filename, line, message)
 
 }
 
 func (p *Protocol) LogWarning(message string) {
 
-	p.Log.Printf("[%s] WARN - %v", p.Name, message)
+	_, filename, line, _ := runtime.Caller(1)
+	p.Log.Printf("[WARN] %s:%d - %v", filename, line, message)
 
 }
 
 func (p *Protocol) LogError(message string) {
 
-	p.Log.Printf("[%s] ERROR - %v", p.Name, message)
+	_, filename, line, _ := runtime.Caller(1)
+	p.Log.Printf("[ERRO] %s:%d - %v", filename, line, message)
 
 }
