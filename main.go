@@ -29,7 +29,8 @@ func (p *Protocol) GetProtocolVersion() string {
 }
 
 func (p *Protocol) Init() {
-	LogInfo("Initializing protocol " + p.Name)
+	LogInfo("Protocol " + p.Name + " is running!!!!!")
+	LogInfo("AQUI VOU MANDAR O AVISO DE QUE O PROTOCOLO ESTÁ RODANDO PARA O MQTT INTERNO")
 }
 
 func LogInfo(message string) {
