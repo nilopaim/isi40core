@@ -4,6 +4,7 @@ import (
 	"io"
 	"log"
 	"os"
+	"path/filepath"
 	"runtime"
 
 	mqtt "github.com/eclipse/paho.mqtt.golang"
@@ -62,20 +63,21 @@ func (p *Protocol) SendMessageMQTT(topic string, message string) {
 func (p *Protocol) LogInfo(message string) {
 
 	_, filename, line, _ := runtime.Caller(1)
-	p.Log.Printf("[INFO] %s:%d - %v", filename, line, message)
+
+	p.Log.Printf("[INFO] %s:%d - %v", filepath.Base(filename), line, message)
 
 }
 
 func (p *Protocol) LogWarning(message string) {
 
 	_, filename, line, _ := runtime.Caller(1)
-	p.Log.Printf("[WARN] %s:%d - %v", filename, line, message)
+	p.Log.Printf("[WARN] %s:%d - %v", filepath.Base(filename), line, message)
 
 }
 
 func (p *Protocol) LogError(message string) {
 
 	_, filename, line, _ := runtime.Caller(1)
-	p.Log.Printf("[ERRO] %s:%d - %v", filename, line, message)
+	p.Log.Printf("[ERRO] %s:%d - %v", filepath.Base(filename), line, message)
 
 }
