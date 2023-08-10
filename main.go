@@ -39,6 +39,12 @@ func (p *Protocol) Init() {
 	mqttClient.Publish("isi40/protocol/"+p.Name+"/status", 0, false, "running")
 }
 
+func (p *Protocol) SendMessageMQTT(topic string, message string) {
+	mqttClient := mqtt.NewClient(mqtt.NewClientOptions().AddBroker("tcp://localhost:1883"))
+	mqttClient.Publish(topic, 0, false, message)
+
+}
+
 func LogInfo(message string) {
 	log.Printf("INFO - %v", message)
 }
