@@ -4,18 +4,24 @@ import "log"
 
 type Protocol struct {
 	Name    string
+	Title   string
 	Version string
 }
 
-func NewProtocol(protocolName string, protocolVersion string) *Protocol {
+func NewProtocol(protocolName string, protocolTitle, protocolVersion string) *Protocol {
 	protocol := new(Protocol)
 	protocol.Name = protocolName
+	protocol.Title = protocolTitle
 	protocol.Version = protocolVersion
 	return protocol
 }
 
 func (p *Protocol) GetProtocolName() string {
 	return p.Name
+}
+
+func (p *Protocol) GetProtocolTitle() string {
+	return p.Title
 }
 
 func (p *Protocol) GetProtocolVersion() string {
