@@ -33,8 +33,8 @@ func (p *Protocol) GetProtocolVersion() string {
 }
 
 func (p *Protocol) Init() {
-	LogInfo("Protocol " + p.Name + " is running!!!!!")
-	LogInfo("AQUI VOU MANDAR O AVISO DE QUE O PROTOCOLO ESTÁ RODANDO PARA O MQTT INTERNO")
+	p.LogInfo("Protocol " + p.Name + " is running!!!!!")
+	p.LogInfo("AQUI VOU MANDAR O AVISO DE QUE O PROTOCOLO ESTÁ RODANDO PARA O MQTT INTERNO")
 	mqttClient := mqtt.NewClient(mqtt.NewClientOptions().AddBroker("tcp://localhost:1883"))
 	mqttClient.Publish("isi40/protocol/"+p.Name+"/status", 0, false, "running")
 }
@@ -45,14 +45,14 @@ func (p *Protocol) SendMessageMQTT(topic string, message string) {
 
 }
 
-func LogInfo(message string) {
-	log.Printf("INFO - %v", message)
+func (p *Protocol) LogInfo(message string) {
+	log.Printf("[%s] INFO - %v", p.Name, message)
 }
 
-func LogWarning(message string) {
-	log.Printf("WARN - %v", message)
+func (p *Protocol) LogWarning(message string) {
+	log.Printf("[%s] WARN - %v", p.Name, message)
 }
 
-func LogError(message string) {
-	log.Printf("ERROR - %v", message)
+func (p *Protocol) LogError(message string) {
+	log.Printf("[%s] ERROR - %v", p.Name, message)
 }
