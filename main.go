@@ -45,9 +45,9 @@ func (p *Protocol) GetProtocolVersion() string {
 
 func (p *Protocol) Init() {
 
-	p.LogInfo("Protocol " + p.Name + " is running!!!!!")
+	p.InternalLogInfo("Protocol " + p.Name + " is running!!!!!")
 
-	p.LogInfo("AQUI VOU MANDAR O AVISO DE QUE O PROTOCOLO ESTÁ RODANDO PARA O MQTT INTERNO")
+	p.InternalLogInfo("AQUI VOU MANDAR O AVISO DE QUE O PROTOCOLO ESTÁ RODANDO PARA O MQTT INTERNO")
 
 	mqttClient := mqtt.NewClient(mqtt.NewClientOptions().AddBroker("tcp://localhost:1883"))
 	mqttClient.Publish("isi40/protocol/"+p.Name+"/status", 0, false, "running")
@@ -63,7 +63,6 @@ func (p *Protocol) SendMessageMQTT(topic string, message string) {
 func (p *Protocol) LogInfo(message string) {
 
 	_, filename, line, _ := runtime.Caller(1)
-
 	p.Log.Printf("[INFO] %s:%d - %v", filepath.Base(filename), line, message)
 
 }
@@ -79,5 +78,26 @@ func (p *Protocol) LogError(message string) {
 
 	_, filename, line, _ := runtime.Caller(1)
 	p.Log.Printf("[ERRO] %s:%d - %v", filepath.Base(filename), line, message)
+
+}
+
+func (p *Protocol) InternalLogInfo(message string) {
+
+	_, filename, line, _ := runtime.Caller(1)
+	p.Log.Printf("[CORE] [INFO] %s:%d - %v", filepath.Base(filename), line, message)
+
+}
+
+func (p *Protocol) InternalLogWarning(message string) {
+
+	_, filename, line, _ := runtime.Caller(1)
+	p.Log.Printf("[WARN] [WARN] %s:%d - %v", filepath.Base(filename), line, message)
+
+}
+
+func (p *Protocol) InternalLogError(message string) {
+
+	_, filename, line, _ := runtime.Caller(1)
+	p.Log.Printf("[CORE] [ERRO] %s:%d - %v", filepath.Base(filename), line, message)
 
 }
