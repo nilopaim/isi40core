@@ -22,7 +22,12 @@ func NewProtocol(protocolName string, protocolTitle, protocolVersion string) *Pr
 
 	protocol := new(Protocol)
 
-	protocol.Log = log.New(io.MultiWriter(os.Stdout), "["+protocolName+"] ", log.Ldate|log.Ltime|log.Lmsgprefix)
+	LogFileHandle, err := os.OpenFile("./"+protocolName+".log", os.O_WRONLY|os.O_APPEND|os.O_CREATE, 0644)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	protocol.Log = log.New(io.MultiWriter(os.Stdout, LogFileHandle), "["+protocolName+"] ", log.Ldate|log.Ltime|log.Lmsgprefix)
 
 	protocol.Name = protocolName
 	protocol.Title = protocolTitle
