@@ -18,7 +18,7 @@ type Protocol struct {
 	Log *log.Logger
 }
 
-func NewProtocol(protocolName string, protocolTitle, protocolVersion string) *Protocol {
+func NewProtocol(protocolName, protocolTitle, protocolVersion string) *Protocol {
 
 	protocol := new(Protocol)
 
