@@ -1,7 +1,6 @@
 package isi40core
 
 import (
-	"fmt"
 	"path/filepath"
 	"runtime"
 )
@@ -41,22 +40,9 @@ func (p *Protocol) InternalLogWarning(message string) {
 
 }
 
-func (p *Protocol) InternalLogError(message string, args ...any) {
+func (p *Protocol) InternalLogError(message string) {
 
 	_, filename, line, _ := runtime.Caller(1)
-
-	defaultFormat := "[CORE] [ERRO] %s:%d - %s"
-
-	format2 := ""
-
-	if len(args) != 0 {
-		for range args {
-			format2 += " %s"
-		}
-		s := fmt.Sprintf(format2, args)
-		p.Log.Printf(defaultFormat, filepath.Base(filename), line, message, s)
-	}
-
-	p.Log.Printf(defaultFormat, filepath.Base(filename), line, message)
+	p.Log.Printf("[CORE] [ERRO] %s:%d - %s", filepath.Base(filename), line, message)
 
 }

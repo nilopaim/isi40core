@@ -1,6 +1,7 @@
 package isi40core
 
 import (
+	"fmt"
 	"io"
 	"log"
 	"os"
@@ -55,7 +56,7 @@ func (p *Protocol) Init() {
 	mqttClient := mqtt.NewClient(mqtt.NewClientOptions().AddBroker("tcp://localhost:1883"))
 
 	if token := mqttClient.Connect(); token.Wait() && token.Error() != nil {
-		p.InternalLogError("MQTT Internal Broker is not running. Error ", token.Error())
+		p.InternalLogError(fmt.Sprintf("MQTT Internal Broker is not running. Error %s", token.Error()))
 		os.Exit(1)
 	}
 
