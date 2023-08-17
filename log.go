@@ -45,12 +45,13 @@ func (p *Protocol) InternalLogError(message string, args ...any) {
 	format := "[CORE] [ERRO] %s:%d - %v"
 
 	if len(args) != 0 {
-		for _, arg := range args {
-			args = append(args, arg)
+		for range args {
+			format += " %T"
 		}
 	}
 
 	_, filename, line, _ := runtime.Caller(1)
-	p.Log.Printf(format, filepath.Base(filename), line, message)
+	p.Log.Printf(format)
+	p.Log.Printf(format, filepath.Base(filename), line, message, args)
 
 }
