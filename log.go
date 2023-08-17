@@ -1,6 +1,7 @@
 package isi40core
 
 import (
+	"fmt"
 	"path/filepath"
 	"runtime"
 )
@@ -50,8 +51,10 @@ func (p *Protocol) InternalLogError(message string, args ...any) {
 		}
 	}
 
+	s := fmt.Sprintf(format, args)
+
 	_, filename, line, _ := runtime.Caller(1)
-	p.Log.Printf("%s", format)
+	p.Log.Printf("%s", s)
 	p.Log.Printf(format, filepath.Base(filename), line, message, args)
 
 }
