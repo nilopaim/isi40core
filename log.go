@@ -51,7 +51,7 @@ func (p *Protocol) InternalLogError(message string, args ...any) {
 	}
 
 	_, filename, line, _ := runtime.Caller(1)
-	p.Log.Printf(format)
+	p.Log.Printf("%s", format)
 	p.Log.Printf(format, filepath.Base(filename), line, message, args)
 
 }
