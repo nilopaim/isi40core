@@ -1,4 +1,5 @@
-module github.com/nilopaim/isi40core
+//module github.com/nilopaim/isi40core
+module test
 
 go 1.21.0
 
